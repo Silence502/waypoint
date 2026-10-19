@@ -23,6 +23,7 @@ En cas de conflit, la priorité est : 1) la sûreté des types et la gestion des
 - Toujours typer les slots avec `Slot` de Vue pour bénéficier de l'autocomplétion et du typage TypeScript.
 - Préférer les `defineExpose` pour exposer des méthodes ou des propriétés aux composants parents plutôt que de manipuler directement le DOM ou les refs internes.
 - Toujours typer les retours des fonctions exposées via `defineExpose` pour bénéficier de l'autocomplétion et du typage TypeScript.
+- Toujours ranger le code dans un composable lorsque cela est possible pour favoriser la réutilisabilité et la testabilité.
 
 ## UI, Design System & Formulaires
 

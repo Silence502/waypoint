@@ -10,6 +10,7 @@ export interface Game {
   id: number;
   name: string;
   exePath: string;
+  notes: string;
 }
 
 export async function getDbConnection() {
@@ -29,9 +30,18 @@ export async function initDb() {
     CREATE TABLE IF NOT EXISTS games (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      exe_path TEXT NOT NULL UNIQUE
+      exe_path TEXT NOT NULL UNIQUE,
+      notes TEXT NOT NULL DEFAULT '{"time":0,"blocks":[]}'
     );
   `);
+  const gameColumns = await db.select<{ name: string }[]>(
+    "PRAGMA table_info(games)",
+  );
+  if (!gameColumns.some((column) => column.name === "notes")) {
+    await db.execute(
+      `ALTER TABLE games ADD COLUMN notes TEXT NOT NULL DEFAULT '{"time":0,"blocks":[]}'`,
+    );
+  }
 }
 
 function rowToMember(row: any): Member {
@@ -95,6 +105,7 @@ function rowToGame(row: any): Game {
     id: row.id,
     name: row.name,
     exePath: row.exe_path,
+    notes: row.notes,
   };
 }
 
@@ -114,13 +125,23 @@ export async function getGameById(id: number): Promise<Game | null> {
   return rows.length > 0 ? rowToGame(rows[0]) : null;
 }
 
+export async function updateGameNotes(id: number, notes: string): Promise<void> {
+  const db = await getDbConnection();
+  await db.execute("UPDATE games SET notes = ? WHERE id = ?", [notes, id]);
+}
+
 export async function createGame(name: string, exePath: string): Promise<Game> {
   const db = await getDbConnection();
   const result = await db.execute(
     "INSERT INTO games (name, exe_path) VALUES (?, ?)",
     [name, exePath],
   );
-  return { id: result.lastInsertId!, name, exePath };
+  return {
+    id: result.lastInsertId!,
+    name,
+    exePath,
+    notes: '{"time":0,"blocks":[]}',
+  };
 }
 
 export async function deleteGame(id: number): Promise<void> {
