@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@import 'primeicons/primeicons.css';
+
+
+
+@custom-variant dark (&:where(.gm-dark, .gm-dark *));
+
+
+@layer base {
+	@apply box-border;
+}
+
+/* FONTS */
+.font-gantari {
+	font-family: 'Gantari', sans-serif;
+}
+
+* {
+	/* 1. Norme Standard (Firefox) */
+	scrollbar-width: thin;
+	scrollbar-color: #4b4b4b transparent;
+	/* border-radius: 10px !important; */
+	/* Thumb (bleu) | Track (gris clair) */
+}
+
+/* 2. Pseudo-éléments WebKit (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+	width: 12px;
+	/* Épaisseur de la barre verticale */
+	height: 12px;
+	/* border-radius: 10px; */
+	/* Épaisseur de la barre horizontale */
+}
+
+*::-webkit-scrollbar-track {
+	background: transparent;
+	border-radius: 10px;
+	margin-block: 8px;
+	margin-inline: 8px;
+	/* Arrondi des angles de la piste */
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #3b82f6;
+	border-radius: 10px;
+	/* L'astuce de la bordure transparente crée un espace (padding) visuel autour de la poignée */
+	/* border: 3px solid #f3f4f6; */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+	background-color: #2563eb;
+	/* Assombrissement au survol */
+
+}
+
+
+/****************** MEMBER LIST ******************/
+.member-list {
+	display: grid;
+	grid-template-rows: 150px 1fr;
+	box-sizing: border-box;
+	height: 100%;
+
+	.member-list_header {
+		grid-row: 1;
+	}
+
+	.member-list_container {
+		grid-row: 2;
+		overflow-y: auto;
+	}
+}
+
+/****************** GROUP LIST ******************/
+.group-list {
+	display: grid;
+	grid-template-rows: 150px 1fr;
+	box-sizing: border-box;
+	height: 100%;
+
+	.group-list_header {
+		grid-row: 1;
+	}
+
+	.group-list_container {
+		grid-row: 2;
+		overflow-y: auto;
+	}
+}
+
+
+/****************** LAYOUT GRID DASHBOARD ******************/
+.layout-grid {
+	display: grid;
+	/* 2 colonnes : la 1ère prend sa taille fixe/contenu, la 2ème prend le reste */
+	grid-template-columns: 350px 1fr;
+	gap: 1rem;
+	height: calc(100vh - 5vh - 32px);
+	/* 100% de la hauteur de la fenêtre moins la hauteur du header */
+	padding: 1rem;
+	box-sizing: border-box;
+	/* position: relative;
+	overflow: hidden; */
+	/* background-color: #121212; */
+}
+
+/* Style commun pour les deux blocs */
+.left-block,
+.main-block {
+	@apply border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800;
+	/* border: 1px solid #000000; */
+	border-radius: 5px;
+	/* padding: 1rem; */
+	/* color: #ffffff; */
+	position: relative;
+	overflow: hidden;
+}
+
+/****************** HEADER SECTION ******************/
+.member-list_item {
+	@apply grid grid-rows-[1fr_auto] items-center p-2 gap-2 border border-gray-300 dark:border-gray-700 rounded-md;
+}
+
+
+
+
+/****************** HEADER SECTION ******************/
+.header-section {
+	@apply h-[5vh] min-h-[5vh] bg-white dark:bg-gray-800 flex items-center justify-center p-4 xl:px-4 w-full z-10 shadow-md;
+}
+
+html,
+body {
+	@apply min-h-screen bg-gray-100 dark:bg-gray-900;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label {
+	@apply text-gray-700 dark:text-gray-300;
+}
+
+label {
+	@apply text-sm font-medium;
+}
+
+h2 {
+	@apply text-2xl font-bold text-center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* GLOBAL COMPONENTS */
+
+.page-wrapper {
+	@apply flex flex-col min-h-screen;
+}
+
+.login-card {
+	padding: 100px 0 50px 0;
+	@apply flex items-center justify-center min-h-screen px-2 lg:px-0 flex-col;
+
+	.login-card-content {
+		@apply w-full max-w-md p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg;
+	}
+}
+
+/* AUTH LAYOUT */
+
+.auth-layout-header {
+	@apply h-[8vh] bg-white dark:bg-gray-800 fixed top-0 w-screen z-10 shadow-md;
+}
+
+.auth-layout-main {}
+
+/* DEFAULT LAYOUT */
+
+.default-layout-header {
+	@apply h-[8vh] bg-white dark:bg-gray-800 flex items-center justify-center p-4 xl:px-0 fixed top-0 w-screen z-10 shadow-md;
+
+	.default-layout-header-content {
+		@apply w-full xl:w-7xl h-full flex items-center justify-between gap-2;
+	}
+}
+
+.default-layout-main {
+	@apply pt-[8vh] flex-1 px-4 xl:px-0;
+}
+
+.default-layout-footer {
+	@apply h-[5vh] bg-white dark:bg-gray-800 flex items-center justify-center p-4 xl:px-0 w-full z-10 shadow-md;
+
+	.default-layout-footer-content {
+		@apply flex gap-2 text-sm;
+	}
+}
+
+/* DASHBOARD LAYOUT */
+
+.dashboard-content {
+	@apply flex-1 p-4;
+}
